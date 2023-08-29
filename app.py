@@ -115,27 +115,27 @@ tools = [
     Tool(
         name = "Retrieve image database",
         func=retrieve_image_DB,
-        description="Use tool to determine the path, name and caption of the images we have." 
+        description="Use tool to determine the path, name and caption of the images in the database." 
     ),
     Tool(
         name = "Display Image",
         func=display_image,
         description="Use this tool to display the image." \
-                    "This will display the image on the chat."              
+                    "This will display the image on the chat interface."              
     ),
     Tool(
         name = "Detect Objects",
         func=detect_objects,
         description="Use this tool to detect objects in the image." \
-                  "It will return a list of all detected objects. Each element in the list in the format: " \
-                  "[x1, y1, x2, y2] class_name confidence_score."
+                    "This will return a list of all detected objects in the following format:" \
+                    "[x1, y1, x2, y2] class_name confidence_score."
     ),
     Tool(
         name = "Search Relevant Image",
         func=search_relevant_image,
         description="Search for relevant image according to the input query."\
                     "It will return the relevance scores of the images in our database"\
-                    "An input query should a word or phrase, e.g., food, playing soccer, sunny weather, riding a bike."
+                    "An input query should be a word or phrase, e.g., food, playing soccer, sunny weather, riding a bike."
     ),
 ]
 
