@@ -7,7 +7,6 @@ An advanced chatbot that combines OpenAI's Language Models (LLM) with state-of-t
 - **Image Content Understanding**: Extracts the essence of an image and presents it as a human-readable caption.
 - **Textual Image Search**: Allows users to search for images in the database by describing their content, returning images that align with the textual query.
 - **Object Detection**: Accurately identifies and locates objects within uploaded images, providing bounding box coordinates.
-- **Interactive UI**: Engage in intuitive conversations with the chatbot, guiding you through its features.
 - **Dynamic Image Database**: Users can continually enrich the image database by uploading new content.
 
 ## Usage
