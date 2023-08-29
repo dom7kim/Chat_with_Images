@@ -35,7 +35,7 @@ Replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` with your actual keys
 
 ## Running with Docker
 
-You can also run the application using Docker, which provides a consistent and isolated environment. Here's how:
+For a consistent and isolated experience, you can run the application using Docker. Follow these steps:
 
 1. Make sure you have Docker installed on your system. If not, you can [download and install Docker](https://www.docker.com/products/docker-desktop).
 
