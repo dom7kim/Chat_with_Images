@@ -50,6 +50,7 @@ cd Chat_with_Images
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 HF_TOKEN=YOUR_HUGGINGFACE_TOKEN
 ```
+Make sure to replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` with your actual keys. **Do not** place quotes around the key values in the `env.list` file.
 
 4. Build the Docker image:
 ```bash
@@ -62,8 +63,6 @@ docker run --env-file env.list -p 8000:8000 your_image_name
 ```
 
 6. Access the chatbot by opening your web browser and navigating to [http://localhost:8000](http://localhost:8000).
-
-Remember to replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` in the `env.list` file with your actual keys. **Do not** place quotes around the key values in the `env.list` file.
 
 By using Docker, you can run the chatbot in a controlled environment without worrying about dependencies conflicting with your system's setup.
 
