@@ -50,8 +50,8 @@ cd Chat_with_Images
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 HF_TOKEN=YOUR_HUGGINGFACE_TOKEN
 ```
-> Make sure to replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` with your actual keys.
-> Note: Do not enclose your keys in quotes.
+&nbsp;&nbsp;&nbsp;&nbsp;Make sure to replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` with your actual keys. 
+&nbsp;&nbsp;&nbsp;&nbsp;Note: Do not enclose your keys in quotes.
 
 4. Build the Docker image:
 ```bash
