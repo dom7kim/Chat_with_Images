@@ -99,6 +99,8 @@ def search_relevant_image(inp):
     """
     inp (str): either the name of an image or its path.
     """
+    if len(inp.split(','))>1:
+        return "Enter a single word or phrase at a time."
 
     search_vector = get_embedding(inp, engine="text-embedding-ada-002")
     new_df_imageDB = df_imageDB[['file_name', 'caption']].copy()
@@ -115,25 +117,25 @@ tools = [
     Tool(
         name = "Retrieve image database",
         func=retrieve_image_DB,
-        description="Use tool to determine the path, name and caption of the images in the database." 
+        description="Useful for when you need to determine the path, name and caption of the images in the database." 
     ),
     Tool(
         name = "Display Image",
         func=display_image,
-        description="Use this tool to display the image." \
+        description="Useful for when you need to display the image." \
                     "This will display the image on the chat interface."              
     ),
     Tool(
         name = "Detect Objects",
         func=detect_objects,
-        description="Use this tool to detect objects in the image." \
+        description="Useful for when you need to detect objects in the image." \
                     "This will return a list of all detected objects in the following format:" \
                     "[x1, y1, x2, y2] class_name confidence_score."
     ),
     Tool(
         name = "Search Relevant Image",
         func=search_relevant_image,
-        description="Search for relevant image according to the input query."\
+        description="Use this tool only when you are asked to search for relevant image according to the input query."\
                     "It will return the relevance scores of the images in our database"\
                     "An input query should be a word or phrase, e.g., food, playing soccer, sunny weather, riding a bike."
     ),
@@ -222,7 +224,7 @@ def add_file(history, file):
     }
 
     # Appending the data to the DataFrame
-    df_imageDB = pd.concat([df_imageDB, pd.DataFrame(data)], ignore_index=True)
+    df_imageDB = pd.concat([df_imageDB, pd.DataFrame([data])], ignore_index=True)
 
     history = history + [((file_path,), "[ {} ] - {}".format(file_name, caption))]
     
