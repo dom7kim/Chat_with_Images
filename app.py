@@ -250,4 +250,4 @@ with gr.Blocks() as demo:
     btn.upload(add_file, [chatbot, btn], outputs = [chatbot, state], queue=False)      
 
 demo.queue()
-demo.launch()
+demo.launch(server_name='0.0.0.0', server_port=8000)
