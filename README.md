@@ -64,7 +64,7 @@ docker run --env-file env.list -p 8000:8000 your_image_name
 
 6. Access the chatbot by opening your web browser and navigating to [http://localhost:8000](http://localhost:8000).
 
-By using Docker, you can run the chatbot in a controlled environment without worrying about dependencies conflicting with your system's setup.
+Utilizing Docker allows you to run the chatbot within a controlled environment, eliminating concerns about dependency conflicts with your system's configuration.
 
 
 
