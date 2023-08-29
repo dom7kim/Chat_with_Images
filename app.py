@@ -222,7 +222,7 @@ def add_file(history, file):
     }
 
     # Appending the data to the DataFrame
-    df_imageDB = df_imageDB.append(data, ignore_index=True)
+    df_imageDB = pd.concat([df_imageDB, pd.DataFrame(data)], ignore_index=True)
 
     history = history + [((file_path,), "[ {} ] - {}".format(file_name, caption))]
     
