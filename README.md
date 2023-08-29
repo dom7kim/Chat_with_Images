@@ -33,7 +33,38 @@ source ~/.bashrc
 
 Replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` with your actual keys. Ensure you keep your keys confidential and do not commit them to public repositories.
 
+## Running with Docker
 
+You can also run the application using Docker, which provides a consistent and isolated environment. Here's how:
+
+1. Make sure you have Docker installed on your system. If not, you can [download and install Docker](https://www.docker.com/products/docker-desktop).
+
+2. Clone the repository to your local machine:
+```bash
+git clone https://github.com/dom7kim/Chat_with_Images.git
+cd Chat_with_Images
+```
+
+3. Create an `env.list` file in the project directory. This file should contain your OpenAI API key and HuggingFace API token:
+
+OPENAI_API_KEY=YOUR_OPENAI_API_KEY
+HF_TOKEN=YOUR_HUGGINGFACE_TOKEN
+
+4. Build the Docker image:
+```bash
+docker build -t your_image_name .
+```
+
+5. Run the Docker container, ensuring that you provide the `env.list` file:
+```bash
+docker run --env-file env.list -p 8000:8000 your_image_name
+```
+
+6. Access the chatbot by opening your web browser and navigating to [http://localhost:8000](http://localhost:8000).
+
+Remember to replace `YOUR_OPENAI_API_KEY` and `YOUR_HUGGINGFACE_TOKEN` in the `env.list` file with your actual keys. **Do not** place quotes around the key values in the `env.list` file.
+
+By using Docker, you can run the chatbot in a controlled environment without worrying about dependencies conflicting with your system's setup.
 
 
 
