@@ -46,9 +46,10 @@ cd Chat_with_Images
 ```
 
 3. Create an `env.list` file in the project directory. This file should contain your OpenAI API key and HuggingFace API token:
-
+```makefile
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY
 HF_TOKEN=YOUR_HUGGINGFACE_TOKEN
+```
 
 4. Build the Docker image:
 ```bash
