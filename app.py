@@ -97,7 +97,7 @@ def detect_objects(inp):
 
 def search_relevant_image(inp):
     """
-    inp (str): either the name of an image or its path.
+    inp (str): input query.
     """
     result = ""
 
