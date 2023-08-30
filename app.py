@@ -99,16 +99,17 @@ def search_relevant_image(inp):
     """
     inp (str): either the name of an image or its path.
     """
-    if len(inp.split(','))>1:
-        return "Enter a single word or phrase at a time."
+    result = ""
 
-    search_vector = get_embedding(inp, engine="text-embedding-ada-002")
-    new_df_imageDB = df_imageDB[['file_name', 'caption']].copy()
-    new_df_imageDB['relevance_score'] = df_imageDB['embedding'].apply(lambda x: cosine_similarity(x, search_vector))
+    for keyword in inp.split(','):
 
-    new_df_imageDB = new_df_imageDB.sort_values("relevance_score", ascending=False)
+        search_vector = get_embedding(keyword, engine="text-embedding-ada-002")
+        temp_df = df_imageDB[['file_name', 'caption']].copy()
+        temp_df['relevance_score'] = df_imageDB['embedding'].apply(lambda x: cosine_similarity(x, search_vector))
+        temp_df = temp_df.sort_values("relevance_score", ascending=False)
+        result = result + "Result for {}:\n{}\n\n".format(keyword, temp_df.to_string())
 
-    return new_df_imageDB.to_string()
+    return result
 
 
 # ------ Define tools for LLM agent. ------
