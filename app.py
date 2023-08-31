@@ -27,6 +27,7 @@ class ChatbotApp:
         - model (str): Name of the chat model to use.
         - temperature (float): Sampling temperature for the chat model.
         """
+        
         self.df_imageDB = pd.DataFrame(columns=["file_name", "caption", "embedding", "file_path"])
         
         # Initialize LLM and memory
@@ -55,6 +56,7 @@ class ChatbotApp:
         Returns:
         - list: A list of Tool objects.
         """
+
         return [
             Tool(
                 name = "Retrieve image database",
@@ -90,6 +92,7 @@ class ChatbotApp:
         Returns:
         - str: A string representation of the image database.
         """
+
         return self.df_imageDB[['file_name', 'caption']].to_string()
 
     def check_image_file_path(self, inp):
@@ -102,6 +105,7 @@ class ChatbotApp:
         Returns:
         - str: The file path if found, otherwise returns "Image not found."
         """
+
         if os.path.exists(inp) and os.path.isfile(inp):
             file_path = inp
         elif (self.df_imageDB['file_name'] == inp).any():
@@ -120,6 +124,7 @@ class ChatbotApp:
         Returns:
         - str: A string to display the image if found, otherwise returns "Image not found."
         """
+
         file_path = self.check_image_file_path(inp)
         if file_path == "Image not found.":
             return file_path 
@@ -158,6 +163,7 @@ class ChatbotApp:
         Returns:
         - str: A string containing detected objects' bounding boxes, class names, and confidence scores.
         """
+
         file_path = self.check_image_file_path(inp)
     
         if file_path == "Image not found.":
@@ -191,6 +197,7 @@ class ChatbotApp:
         Returns:
         - str: A string representation of the search results.
         """
+
         result = ""
         for keyword in inp.split(','):
             search_vector = get_embedding(keyword, engine="text-embedding-ada-002")
@@ -212,6 +219,7 @@ class ChatbotApp:
         Returns:
         - list: Updated chat history.
         """
+
         history = history + [(text, '')]
         return history, ""
 
@@ -224,7 +232,8 @@ class ChatbotApp:
         
         Returns:
         - list: Updated chat history with the generated response.
-        """         
+        """  
+
         response = self.agent_executor(history[-1][0])
         response_msg = response["output"]
         history[-1][1] = response_msg
@@ -247,6 +256,7 @@ class ChatbotApp:
         Returns:
         - str: A unique file name.
         """
+
         base_name, ext = os.path.splitext(file_name)
         match = re.search(r'(.*)\((\d+)\)$', base_name)
         
@@ -275,6 +285,7 @@ class ChatbotApp:
         Returns:
         - list: Updated chat history with information about the uploaded file.
         """
+
         file_name = self.get_unique_file_name(file.name.split('/')[-1])
         file_path = file.name  # this gives the path to the file, not just the file's name
 
@@ -329,6 +340,7 @@ class ChatbotApp:
         """
         Sets up the Gradio interface and then launches the application.
         """
+
         self.setup_interface()
         self.demo.queue()
         self.demo.launch(server_name='0.0.0.0', server_port=8000)
