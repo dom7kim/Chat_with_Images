@@ -15,11 +15,11 @@ import gradio as gr
 
 class ChatbotApp:
 
-    def __init__(self):
+    def __init__(self, model='gpt-3.5-turbo', temperature = 1.0):
         self.df_imageDB = pd.DataFrame(columns=["file_name", "caption", "embedding", "file_path"])
         
         # Initialize LLM and memory
-        self.llm = ChatOpenAI(temperature=1.0, streaming=True, model='gpt-3.5-turbo')
+        self.llm = ChatOpenAI(temperature=temperature, streaming=True, model=model)
         self.memory = ConversationBufferMemory(
             return_messages=True, memory_key="chat_history", output_key="output")
         
