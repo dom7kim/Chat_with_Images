@@ -1,0 +1,7 @@
+__pycache__/
+env.list
+*.pyc
+.gitignore
+README.md
+test.jpeg
+test_code.py
