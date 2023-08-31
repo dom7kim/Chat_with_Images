@@ -14,8 +14,19 @@ import pdb
 import gradio as gr
 
 class ChatbotApp:
-
+    """
+    A chatbot application class that interfaces with Gradio and supports image uploads, 
+    object detection, image captioning, and image searching.
+    """
+    
     def __init__(self, model='gpt-3.5-turbo', temperature = 1.0):
+        """
+        Initializes the ChatbotApp instance.
+        
+        Parameters:
+        - model (str): Name of the chat model to use.
+        - temperature (float): Sampling temperature for the chat model.
+        """
         self.df_imageDB = pd.DataFrame(columns=["file_name", "caption", "embedding", "file_path"])
         
         # Initialize LLM and memory
@@ -38,6 +49,12 @@ class ChatbotApp:
         )
 
     def define_tools(self):
+        """
+        Defines and returns a list of tools that the chatbot can use.
+        
+        Returns:
+        - list: A list of Tool objects.
+        """
         return [
             Tool(
                 name = "Retrieve image database",
@@ -67,9 +84,24 @@ class ChatbotApp:
         ]
 
     def retrieve_image_DB(self, _):
+        """
+        Retrieves the image database as a string.
+        
+        Returns:
+        - str: A string representation of the image database.
+        """
         return self.df_imageDB[['file_name', 'caption']].to_string()
 
     def check_image_file_path(self, inp):
+        """
+        Checks if the input corresponds to a valid image file path or an image name in the database.
+        
+        Parameters:
+        - inp (str): Either the name of an image file or the path to the file.
+        
+        Returns:
+        - str: The file path if found, otherwise returns "Image not found."
+        """
         if os.path.exists(inp) and os.path.isfile(inp):
             file_path = inp
         elif (self.df_imageDB['file_name'] == inp).any():
@@ -79,12 +111,31 @@ class ChatbotApp:
         return file_path
 
     def display_image(self, inp):
+        """
+        Returns a string to display an image if found in the database or on the file path.
+        
+        Parameters:
+        - inp (str): Either the name of an image file or the path to the file.
+        
+        Returns:
+        - str: A string to display the image if found, otherwise returns "Image not found."
+        """
         file_path = self.check_image_file_path(inp)
         if file_path == "Image not found.":
             return file_path 
         return f"display {file_path}"
 
     def get_image_caption(self, image_path):
+        """
+        Generates a caption for a given image using the Blip image captioning model.
+        
+        Parameters:
+        - image_path (str): Path to the image.
+        
+        Returns:
+        - str: Generated caption for the image.
+        """
+
         image = Image.open(image_path).convert('RGB')
         model_name = "Salesforce/blip-image-captioning-large"
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -98,6 +149,15 @@ class ChatbotApp:
         return caption
 
     def detect_objects(self, inp):
+        """
+        Detects objects in a given image and returns their bounding boxes, class names, and confidence scores.
+        
+        Parameters:
+        - inp (str): Either the name of an image file or the path to the file.
+        
+        Returns:
+        - str: A string containing detected objects' bounding boxes, class names, and confidence scores.
+        """
         file_path = self.check_image_file_path(inp)
     
         if file_path == "Image not found.":
@@ -122,6 +182,15 @@ class ChatbotApp:
         return detections
 
     def search_relevant_image(self, inp):
+        """
+        Searches for images in the database that are relevant to a given input query.
+        
+        Parameters:
+        - inp (str): Input query which can be a word or phrase.
+        
+        Returns:
+        - str: A string representation of the search results.
+        """
         result = ""
         for keyword in inp.split(','):
             search_vector = get_embedding(keyword, engine="text-embedding-ada-002")
@@ -133,10 +202,29 @@ class ChatbotApp:
         return result
 
     def add_text(self, history, text):
+        """
+        Appends a user's text to the chat history.
+        
+        Parameters:
+        - history (list): Current chat history.
+        - text (str): User's input text.
+        
+        Returns:
+        - list: Updated chat history.
+        """
         history = history + [(text, '')]
         return history, ""
 
-    def generate_response(self, history):         
+    def generate_response(self, history):
+        """
+        Generates a response for the last user's input in the chat history.
+        
+        Parameters:
+        - history (list): Current chat history.
+        
+        Returns:
+        - list: Updated chat history with the generated response.
+        """         
         response = self.agent_executor(history[-1][0])
         response_msg = response["output"]
         history[-1][1] = response_msg
@@ -150,6 +238,15 @@ class ChatbotApp:
         return history, history
 
     def get_unique_file_name(self, file_name):
+        """
+        Generates a unique file name by appending or incrementing a number if necessary.
+        
+        Parameters:
+        - file_name (str): Original file name.
+        
+        Returns:
+        - str: A unique file name.
+        """
         base_name, ext = os.path.splitext(file_name)
         match = re.search(r'(.*)\((\d+)\)$', base_name)
         
@@ -168,6 +265,16 @@ class ChatbotApp:
         return new_file_name
 
     def add_file(self, history, file):
+        """
+        Processes an uploaded file, generates a caption, and updates the chat history.
+        
+        Parameters:
+        - history (list): Current chat history.
+        - file (obj): Uploaded file object.
+        
+        Returns:
+        - list: Updated chat history with information about the uploaded file.
+        """
         file_name = self.get_unique_file_name(file.name.split('/')[-1])
         file_path = file.name  # this gives the path to the file, not just the file's name
 
@@ -184,7 +291,7 @@ class ChatbotApp:
         self.df_imageDB = pd.concat([self.df_imageDB, pd.DataFrame([data])], ignore_index=True)
 
         if history[-1] == ['', '']: 
-            history[-1] = ((file_path,), "[ {} ] - {}".format(file_name, caption))
+            history[-1] = ((file_path,), "A new image named '{}' has been successfully uploaded.".format(file_name))
         else:
             query = "Target Image: {} \n Query: {}".format(file_name, history[-1][0])
             response = self.agent_executor(query)
@@ -195,6 +302,9 @@ class ChatbotApp:
         return history, history
 
     def setup_interface(self):
+        """
+        Sets up the Gradio interface for the chatbot application.
+        """
         self.demo = gr.Blocks()
         
         with self.demo:
@@ -216,6 +326,9 @@ class ChatbotApp:
                 self.add_file, [chatbot, btn], outputs=[chatbot, state], queue=False)
 
     def launch(self):
+        """
+        Sets up the Gradio interface and then launches the application.
+        """
         self.setup_interface()
         self.demo.queue()
         self.demo.launch(server_name='0.0.0.0', server_port=8000)
