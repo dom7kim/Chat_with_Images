@@ -194,8 +194,10 @@ class ChatbotApp:
 
         return history, history
 
-    def launch(self):
-        with gr.Blocks() as demo:
+    def setup_interface(self):
+        self.demo = gr.Blocks()
+        
+        with self.demo:
             chatbot = gr.Chatbot(value=[], elem_id="chatbot", height=600)
             with gr.Row():
                 with gr.Column(scale=0.85):
@@ -213,9 +215,12 @@ class ChatbotApp:
             btn.upload(self.add_text, [chatbot, txt], [chatbot, txt], queue=False).then(
                 self.add_file, [chatbot, btn], outputs=[chatbot, state], queue=False)
 
-            demo.queue()
-            demo.launch(server_name='0.0.0.0', server_port=8000)
+    def launch(self):
+        self.setup_interface()
+        self.demo.queue()
+        self.demo.launch(server_name='0.0.0.0', server_port=8000)
 
-# Instantiate and launch
-app = ChatbotApp()
-app.launch()
+if __name__ == "__main__":
+    # Instantiate and launch
+    app = ChatbotApp()
+    app.launch()
