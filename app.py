@@ -18,7 +18,7 @@ class ChatbotApp:
     A chatbot application class that interfaces with Gradio and supports image uploads, 
     object detection, image captioning, and image searching.
     """
-    
+
     def __init__(self, model='gpt-3.5-turbo', temperature = 1.0):
         """
         Initializes the ChatbotApp instance.
@@ -335,5 +335,5 @@ class ChatbotApp:
 
 if __name__ == "__main__":
     # Instantiate and launch
-    app = ChatbotApp()
+    app = ChatbotApp(model='gpt-4')
     app.launch()
