@@ -1,6 +1,6 @@
-# LLM Image Content Understanding Chatbot
+# Image Content Understanding Chatbot
 
-An advanced chatbot that combines OpenAI's Language Models (LLM) with state-of-the-art image processing techniques. This chatbot understands the content of uploaded images, providing a platform for users to search for relevant images based on textual descriptions, generate meaningful captions, and detect objects within the images.
+A chatbot that combines OpenAI's Language Models (LLM) with state-of-the-art image processing techniques. This chatbot understands the content of uploaded images, providing a platform for users to search for relevant images based on textual descriptions, generate meaningful captions, and detect objects within the images.
 
 ## Features
 
