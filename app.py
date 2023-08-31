@@ -10,7 +10,7 @@ from openai.embeddings_utils import get_embedding, cosine_similarity
 from langchain.agents import Tool, AgentExecutor, ConversationalChatAgent
 from langchain.memory import ConversationBufferMemory
 from langchain.chat_models import ChatOpenAI
-import pdb
+
 import gradio as gr
 
 class ChatbotApp:
