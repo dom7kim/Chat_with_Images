@@ -347,5 +347,5 @@ class ChatbotApp:
 
 if __name__ == "__main__":
     # Instantiate and launch
-    app = ChatbotApp(model='gpt-4')
+    app = ChatbotApp(model='gpt-4', temperature=0.2)
     app.launch()
