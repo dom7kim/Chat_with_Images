@@ -1,4 +1,4 @@
-# Image Content Understanding Chatbot
+# ImageChat: Image Content Understanding Chatbot
 
 A chatbot that combines OpenAI's Language Models (LLM) with state-of-the-art image processing techniques. This chatbot understands the content of uploaded images, providing a platform for users to search for relevant images based on textual descriptions, generate meaningful captions, and detect objects within the images.
 
