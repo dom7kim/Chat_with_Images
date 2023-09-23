@@ -1,3 +1,4 @@
 __pycache__/
 env.list
 *.copy
+.DS_Store
