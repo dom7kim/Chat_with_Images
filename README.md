@@ -2,7 +2,9 @@
 
 A chatbot that combines OpenAI's Language Models (LLM) with state-of-the-art image processing techniques. This chatbot understands the content of uploaded images, providing a platform for users to search for relevant images based on textual descriptions, generate meaningful captions, and detect objects within the images.
 
-[![View the demo on YouTube.](youtube.png)](https://www.youtube.com/watch?v=bsl7h1FKiS0)
+<a href="https://www.youtube.com/watch?v=bsl7h1FKiS0">
+  <img src="youtube.png" alt="View the demo on YouTube." width="200">
+</a>
 
 ## Features
 
