@@ -4,7 +4,7 @@ A chatbot that combines OpenAI's Language Models (LLM) with state-of-the-art ima
 
 <div align="center">
   <a href="https://www.youtube.com/watch?v=bsl7h1FKiS0">
-    <img src="youtube.png" alt="View the demo on YouTube." width="500">
+    <img src="../assets/youtube.png" alt="View the demo on YouTube." width="500">
   </a>
 </div>
 

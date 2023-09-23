@@ -1,5 +1,5 @@
 import re
-from app import ChatbotApp
+from src.app import ChatbotApp
 
 class ImageClass:
     def __init__(self, path):
@@ -22,7 +22,7 @@ def test_add_file_scenario_1():
 
 # Scenario 2 tests adding an image with specific user input.
 def test_add_file_scenario_2():
-    image_instance = ImageClass("test.jpeg")
+    image_instance = ImageClass("../assets/test.jpeg")
     history = [["Count the number of sandwiches in this image. Return only the integer number. Nothing else.", ""]]
     result_add = test_app.add_file(history, image_instance)
     result_search = test_app.search_relevant_image('pizza')
